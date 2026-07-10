@@ -7,19 +7,24 @@ noise:
 
 prefixes:
   allocation: sequential
-  v4: 100.64.0.0/10
-  v6: fd7a:115c:a1e0::/48
+  v4: 100.65.0.0/16
+  v6: fd7a:115c:a1e1::/48
 
 derp:
-  urls:
-    - https://controlplane.tailscale.com/derpmap/default
-  auto_update_enabled: true
+  server:
+    enabled: true
+    region_id: 999
+    region_code: "custom"
+    region_name: "iMac Lab Custom DERP"
+    stun_listen_addr: "0.0.0.0:3478"
+    private_key_path: /app/data/derp_server_private.key
+  urls: []
+  paths: []
+  auto_update_enabled: false
   update_frequency: 24h
 
-# Disables the automatic check for headscale updates on startup
 disable_check_updates: true
 
-# Remove ephemeral nodes after being inactive
 ephemeral_node_inactivity_timeout: 30m
 
 database:
@@ -27,7 +32,6 @@ database:
   sqlite:
     path: /app/data/headscale.db
 
-# TLS
 tls_cert_path: ""
 tls_key_path: ""
 
@@ -43,7 +47,6 @@ dns:
   base_domain: $HEADSCALE_BASE_DOMAIN
   nameservers:
     global:
-      # Cloudflare DNS
       - 1.1.1.1
       - 2606:4700:4700::1111
       - 1.0.0.1
